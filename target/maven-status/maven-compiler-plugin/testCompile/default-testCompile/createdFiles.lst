@@ -1,0 +1,3 @@
+com\core\naveapi\config\FlywayTestConfig.class
+com\core\naveapi\controller\NaveEspacialControllerTest.class
+com\core\naveapi\service\NaveServiceTest.class

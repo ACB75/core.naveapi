@@ -1,0 +1,11 @@
+com\core\naveapi\exception\GlobalExceptionHandler.class
+com\core\naveapi\repository\NaveEspacialRepository.class
+com\core\naveapi\config\CacheConfig.class
+com\core\naveapi\model\NaveEspacial.class
+com\core\naveapi\NaveApiApplication.class
+com\core\naveapi\service\NaveEspacialService.class
+com\core\naveapi\aop\NaveEspacialAspect.class
+com\core\naveapi\broker\RabbitMQProducer.class
+com\core\naveapi\config\RabbitMQConfig.class
+com\core\naveapi\broker\RabbitMQConsumer.class
+com\core\naveapi\controller\NaveEspacialController.class
