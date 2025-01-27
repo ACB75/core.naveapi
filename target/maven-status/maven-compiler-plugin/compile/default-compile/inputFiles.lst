@@ -1,0 +1,13 @@
+C:\Workspace\naves\naves\src\main\java\com\w2m\aspect\LoggingAspect.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\broker\rabbitmq\consumer\NaveEspacialConsumer.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\broker\rabbitmq\producer\NaveEspacialProducer.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\broker\rabbitmq\RabbitMQConf.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\cache\Cache.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\controller\NaveEspacialController.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\entity\NaveEspacial.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\exception\GenericException.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\NavesApplication.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\repository\NaveEspacialRepository.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\security\SecConf.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\service\NaveEspacialService.java
+C:\Workspace\naves\naves\src\main\java\com\w2m\swagger\SwaggerConfig.java
