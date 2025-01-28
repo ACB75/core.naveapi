@@ -1,0 +1,10 @@
+.vscode/
+target/
+.hintrc
+*.log
+node_modules/
+vendor/
+dist/
+build/
+tmp/
+temp/
