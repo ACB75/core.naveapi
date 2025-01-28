@@ -1,38 +1,50 @@
 package com.w2m.security;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
-//@EnableWebSecurity
-public class SecConf extends WebSecurityConfiguration {
-      /*
-      @Override
-      protected void configure(HttpSecurity http) throws Exception {
+@Configuration
+@EnableWebSecurity
+public class SecConf {
+
+      @Bean
+      public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
           http
-                  .authorizeRequests(requests -> requests
-                          .antMatchers("/api/navesespaciales/**").authenticated()
-                          .and()
-                          .httpBasic());
+                  .authorizeHttpRequests((authorizeRequests) ->
+                          authorizeRequests
+                                  .requestMatchers("/admin/**").hasRole("ADMIN")
+                                  .requestMatchers("/**").hasRole("USER")
+                  )
+                  .formLogin(withDefaults());
+          return http.build();
+      }
+      public UserDetailsService userDetailsService() {
+            PasswordEncoder encoder = passwordEncoder();
+            UserDetails user = User.builder()
+                  .username("user")
+                  .password(encoder.encode("password"))
+                  .roles("USER")
+                  .build();
+          UserDetails admin = User.builder()
+                  .username("admin")
+                  .password(encoder.encode("password"))
+                  .roles("ADMIN", "USER")
+                  .build();
+          return new InMemoryUserDetailsManager(user, admin);
       }
 
       @Bean
-      @Override
-      public UserDetailsService userDetailsService() {
-            UserDetails user = User.withDefaultPasswordEncoder()
-            .username("user")
-            .password("password")
-            .roles("USER")
-            .build();
-            return new InMemoryUserDetailsManager(user);
+      public PasswordEncoder passwordEncoder() {
+          return new BCryptPasswordEncoder();
       }
-      
-      */
 }
