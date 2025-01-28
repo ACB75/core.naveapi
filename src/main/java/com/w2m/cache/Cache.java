@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
 public class Cache {
     @Bean
     CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("spaceships");
+        return new ConcurrentMapCacheManager("NaveEspacial");
     }
 }

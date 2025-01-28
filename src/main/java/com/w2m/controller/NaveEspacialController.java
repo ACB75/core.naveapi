@@ -18,7 +18,7 @@ import com.w2m.entity.NaveEspacial;
 import com.w2m.service.NaveEspacialService;
 
 @RestController
-@RequestMapping("/api/navesespaciales")
+@RequestMapping("/api/navesepacial")
 public class NaveEspacialController {
 
         @Autowired

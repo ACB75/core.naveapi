@@ -1,18 +1,19 @@
 package com.w2m.entity;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.annotation.Id;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Data;
 
-@EntityScan
+@Entity
 @Data
 public class NaveEspacial {
 
     @Id
-    //@Generated(strategy = GeneratorType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String series;
-
+    
 }
