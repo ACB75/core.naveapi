@@ -1,14 +1,33 @@
 # Build stage
-FROM maven:3.8.4-openjdk-17 AS build
-WORKDIR /naves
-COPY pom.xml .
+FROM maven:3.9.9-eclipse-temurin-21 AS build
+WORKDIR /core.naveapi
+COPY pom.xml ./
 COPY src ./src
-RUN mvn dependency:go-offline  # Descarga las dependencias sin compilar
-RUN mvn clean package -DskipTests
 
-# Run stage
-FROM openjdk:17-jdk-alpine
-WORKDIR /naves
-COPY --from=build /naves/target/naves-1.0-SNAPSHOT.jar app.jar
+# Configurar Maven para usar HTTPS
+RUN mkdir -p /root/.m2 && echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"><mirrors><mirror><id>central</id><mirrorOf>central</mirrorOf><url>https://repo.maven.apache.org/maven2</url></mirror></mirrors></settings>' > /root/.m2/settings.xml
+
+RUN mvn clean install -U -DskipTests
+
+FROM eclipse-temurin:21 AS jre-build
+
+# Create a custom Java runtime
+RUN $JAVA_HOME/bin/jlink \
+    --add-modules java.base \
+    --strip-debug \
+    --no-man-pages \
+    --no-header-files \
+    --compress=2 \
+    --output /javaruntime
+
+# Define your base image
+FROM debian:buster-slim
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+COPY --from=jre-build /javaruntime $JAVA_HOME
+
+# Continue with your application deployment
+WORKDIR /core.naveapi
+COPY --from=build /core.naveapi/target/naves-1.0-SNAPSHOT.jar /app/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
